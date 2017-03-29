@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>江苏平安</title>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../stylesheet/reset.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="../stylesheet/point-rank.css" type="text/css" media="screen" charset="utf-8">
+</head>
+<body>
+<header>
+    <h3>本期积分</h3>
+    <p class="p1">129</p>
+    <p class="p2">你当前积分排名第 <span>6</span> 位</p>
+    <p class="p3">本期开奖时间：<span>2017年3月16日</span></p>
+</header>
+<div class="notify">
+    <span class="left">上一期获奖名单</span>
+    <span class="allow"></span>
+</div>
+
+<div class="box group1">
+    <div class="rule">
+        <img src="../image/rule.png">
+    </div>
+    <div class="sign">
+        <img src="../image/sign.png">
+    </div>
+</div>
+
+<div class="group2">
+    <div class="row tit">
+        <span>名次</span>
+        <span>车牌</span>
+        <span>签到次数</span>
+        <span>总分</span>
+    </div>
+    <!--<div class="row">-->
+        <!--<span></span>-->
+        <!--<span>渝A***85</span>-->
+        <!--<span>360</span>-->
+        <!--<span>10000</span>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<span></span>-->
+        <!--<span>渝A***85</span>-->
+        <!--<span>345</span>-->
+        <!--<span>12324</span>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<span></span>-->
+        <!--<span>渝A***85</span>-->
+        <!--<span>432</span>-->
+        <!--<span>23213</span>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<span>4</span>-->
+        <!--<span>渝A***85</span>-->
+        <!--<span>111</span>-->
+        <!--<span>3213</span>-->
+    <!--</div>-->
+
+    <!-- 无排名提示 -->
+    <div class="no-rank">
+        <img src="../image/sorry.png">
+        <p>本次活动仍未开始，暂无排名信息</p>
+    </div>
+
+</div>
+
+<!--弹出层-->
+<div class="layer hide">
+    <div class="layer-con">
+        本次活动还没有开始哟，<br>活动开始后才能签到，再等等吧
+    </div>
+    <div class="layer-btn">
+        确定
+    </div>
+</div>
+<div class="fade hide"></div>
+
+</body>
+
+<script src="../javascript/base.js"></script>
+<script>
+    function layer(){
+
+        var _self = this;
+        var fun = function(){};
+        this.callback = fun;
+        this.conHtml =  $id('layer-con');
+        this.btn = $id('layer-btn');
+        this.layer = $a('.layer, .fade');
+
+        /**
+         * 弹出层
+         * @param {string}
+         * @param {function}
+         *
+         * */
+        this.show = function(con, cb){
+            _self.conHtml.innerHTML = con;
+            if(cb){
+                _self.callback = cb;
+            }else{
+                _self.callback = fun;
+            }
+            _self.layer.forEach(function(item){
+                item.classList.remove('hide')
+            })
+        }
+//        点击确定
+        this.btn.addEventListener('click',function(){
+            _self.layer.forEach(function(item){
+                item.classList.add('hide')
+            })
+            _self.callback();
+        },false)
+
+    }
+</script>
+</html>

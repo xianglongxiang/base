@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layer demo</title>
+    <link rel="stylesheet" href="../stylesheet/reset.css">
+    <link rel="stylesheet" href="../stylesheet/main.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <style>
+        .btn{
+            padding: 10px 20px;
+            margin: 0 auto;
+            border: 1px solid #cccccc;
+            display: inline-block;
+            background: #fff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn">点击弹出</div>
+</body>
+<script src="../javascript/base.js"></script>
+<script>
+    var layer = new Layer();
+   $('.btn').addEventListener('click',function(){
+       layer.show('这是一个简单的弹出层',function(){
+           this.show('弹出层已经关闭');
+       });
+   },false)
+</script>
+</html>

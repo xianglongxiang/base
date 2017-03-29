@@ -149,6 +149,8 @@
 	win.unbind = unbind;
 })(window, document);
 
+
+
 (function(win){
 
 	function noop(){}
@@ -237,6 +239,31 @@
 	window.ajax = ajax;
 })(window);
 
+(function(win, doc) {
+    var lastTime = 0;
+    var requestAnimationFrame = win.requestAnimationFrame,
+        cancelAnimationFrame = win.CancelAnimationFrame;
+    requestAnimationFrame = requestAnimationFrame || win.webkitRequestAnimationFram;
+    cancelAnimationFrame = cancelAnimationFrame || win.webkitCancelAnimationFrame || win.webkitCancelRequestAnimationFrame;
+
+    if (!requestAnimationFrame || !cancelAnimationFrame) {
+        requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+            var id = win.setTimeout(function () {
+                callback(currTime + timeToCall);
+            }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+        cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+    }
+    win.requestAnimationFrame = requestAnimationFrame;
+    win.cancelAnimationFrame = cancelAnimationFrame;
+}(window, document));
+
 (function(win, doc){
 	/**
 	 * 获取/设置标签属性
@@ -247,9 +274,122 @@
 	function attr(node, name, value) {
 		return value ? node.setAttribute(name, value) : node.getAttribute(name);
 	}
+
+	/**
+	 * 页面向上滑动，将导航栏固定到顶部
+	 * @param {string} dom上下文
+	 * */
+	function fixedTop(selector){
+
+		var dom = $(selector);
+
+        win.addEventListener('scroll',function(){
+            if(win.scrollY > dom.offsetTop){
+                dom.style.position = 'fixed';
+                dom.style.top = 0;
+            }else{
+                dom.style.position = 'relative';
+            }
+
+        },false)
+	}
+
+	/**
+	 * 简单弹出框
+	 * var l = new Layer();
+	 * l.show('con',fun);
+	 * */
+	function Layer(){
+
+        this.html = '<div class="layer hide">' +
+            '<div class="layer-con"></div>' +
+            '<div class="layer-btn">确定</div>' +
+            '</div>' +
+            '<div class="fade hide"></div>'
+        if(!$('.layer')){
+            append('body', this.html);
+        }
+        var _self = this;
+        var fun = function(){};
+        this.callback = fun;
+        this.conHtml =  $('.layer-con');
+        this.btn = $('.layer-btn');
+        this.layer = $a('.layer, .fade');
+        /**
+         * 弹出层
+         * @param {string}
+         * @param {function}
+         *
+         * */
+        this.show = function(con, cb){
+            _self.conHtml.innerHTML = con;
+            if(cb){
+                _self.callback = cb;
+            }else{
+                _self.callback = fun;
+            }
+            _self.layer.forEach(function(item){
+                item.classList.remove('hide')
+            })
+        }
+//        点击确定
+        this.btn.addEventListener('click',function(){
+            _self.layer.forEach(function(item){
+                item.classList.add('hide')
+            })
+            _self.callback();
+        },false)
+	}
+
+	/**
+	 * 添加html内容到 上下文
+	 * @param {string} dom 上下文
+	 * @param {string} '<div>添加内容</div>'
+	 *
+	 * */
+	function append(selector, html){
+		var div = doc.createElement('div');
+		div.innerHTML = html;
+		var dom = doc.querySelector(selector);
+		[].forEach.call(div.childNodes, function(node){
+			dom.appendChild(node);
+		})
+	}
+
+	/**
+	 * 滚动到顶部
+	 * @param {int} 返回顶部时间
+	 * */
+	function scrollTop(){
+		var time = 3000;
+        var start = null; //开始滚动时间
+		var top = doc.body.scrollTop;
+		var step = top/time;
+        function toTop(timestamp) { // timestamp 页面绘制到当前的时间戳
+        	if(!start) start = timestamp;
+            var progress = timestamp - start;
+            if (top <= 0) {
+                return;
+            }
+            top -= step * progress;
+            if (top <= 0) {
+                top = 0;
+            }
+            scrollTo(0, top);
+            requestAnimationFrame(toTop);
+        }
+        requestAnimationFrame(toTop);
+	}
+
 	win.attr = attr;
-	
+	win.fixedTop = fixedTop;
+	win.Layer = Layer;
+	win.append = append;
+	win.scrollTop = scrollTop;
+
 })(window, document);
+
+
 
 
 
