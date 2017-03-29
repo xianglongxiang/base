@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
+	<table id="outside">
+    <tr><td id="t1">one</td></tr>
+    <tr><td id="t2">two</td></tr>
+    </table>
+	
+</body>
+<script src="base.js"></script>
+<script>
+	ajax({
+		url: 'http://rap.taobao.org/mockjs/12070/user/add',
+		type: 'post',
+		data: {
+			name: 'zhangsan'
+		},
+		success: function(data){
+			console.log(data);
+		},
+		error: function(err){
+			console.log(err);
+		}
+	});
+	attr($id('outside'),'data-id',1);
+</script>
+</html>
