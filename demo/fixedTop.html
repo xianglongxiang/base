@@ -29,6 +29,15 @@
             height: 1500px;
             height: 1500px;
         }
+        .back{
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -38,9 +47,17 @@
 </div>
 <div class="content">这是content</div>
 <div class="footer">这是footer</div>
+<div class="back">back</div>
+<div class="test">test </div>
 </body>
 <script src="../javascript/base.js"></script>
 <script>
     fixedTop('.nav')
+    document.querySelector('.back').addEventListener('click', function(){
+        scrollTop();
+    },false);
+    document.querySelector('.test').addEventListener('click',function(){
+        document.execCommand('selectAll')
+    },false);
 </script>
 </html>

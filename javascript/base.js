@@ -282,12 +282,12 @@
 	function fixedTop(selector){
 
 		var dom = $(selector);
-
+		var domY = dom.offsetTop;
         win.addEventListener('scroll',function(){
-            if(win.scrollY > dom.offsetTop){
+            if(win.scrollY > domY){
                 dom.style.position = 'fixed';
                 dom.style.top = 0;
-            }else{
+            }else {
                 dom.style.position = 'relative';
             }
 

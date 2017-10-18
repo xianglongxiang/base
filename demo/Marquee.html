@@ -1,0 +1,88 @@
+
+<!doctype html>
+<title>javascript无缝滚动  by 司徒正美</title>
+<meta charset="utf-8"/>
+<meta name="keywords" content="javascript无缝滚动 by 司徒正美" />
+<meta name="description" content="javascript无缝滚动  by 司徒正美" />
+<style type="text/css">
+    h1 {
+        font:400 16px/1 "Microsoft YaHei",KaiTi_GB2312,SimSun
+    }
+    #marquee {
+        position:relative;
+        width: 400px;
+        overflow:hidden;
+        border: 10px solid #B45B3E;
+    }
+    #marquee img {
+        border:0px;
+    }
+    #marquee dl, #marquee dt,#marquee dd,#marquee a {
+        float:left;
+        margin:0;
+        padding:0;
+    }
+    #marquee dl{
+        width:1000%;
+        height:150px;
+    }
+    #marquee img{
+        width: 200px;
+    }
+</style>
+<script type="text/javascript">
+    var Marquee = function(id){
+        try{document.execCommand("BackgroundImageCache", false, true);}catch(e){};
+        var container = document.getElementById(id),
+            original = container.getElementsByTagName("dt")[0],
+            clone = container.getElementsByTagName("dd")[0],
+            speed = arguments[1] || 10;
+        clone.innerHTML=original.innerHTML;
+        var rolling = function(){
+//            向左
+            if(container.scrollLeft == clone.offsetLeft){
+                container.scrollLeft = 0;
+            }else{
+                container.scrollLeft++;
+            }
+//            向上
+//            if(container.scrollTop == clone.offsetTop){
+//                container.scrollTop = 0;
+//            }else{
+//                container.scrollTop++;
+//            }
+//            向下
+//            if(container.scrollTop == 0){
+//                container.scrollTop = clone.offsetTop;
+//            }else{
+//                container.scrollTop--;
+//            }
+
+//                向右
+//            if(container.scrollLeft == 0){
+//                container.scrollLeft = clone.offsetLeft;
+//            }else{
+//                container.scrollLeft--;
+//            }
+        }
+        var timer = setInterval(rolling,speed)//设置定时器
+        container.onmouseover=function() {clearInterval(timer)}//鼠标移到marquee上时，清除定时器，停止滚动
+        container.onmouseout=function() {timer=setInterval(rolling,speed)}//鼠标移开时重设定时器
+    }
+    window.onload = function(){
+        Marquee("marquee");
+    }
+</script>
+<div id="marquee">
+    <dl>
+        <dt>
+            <img src="../images/1.jpg"/>
+            <img src="../images/2.jpg"/>
+            <img src="../images/3.jpg"/>
+            <img src="../images/4.jpg"/>
+            <img src="../images/5.jpg"/>
+            <img src="../images/6.jpg"/>
+        </dt>
+        <dd></dd>
+    </dl>
+</div>
