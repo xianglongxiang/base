@@ -1,88 +1,116 @@
-
 <!doctype html>
-<title>javascript无缝滚动  by 司徒正美</title>
+<title>javascript无缝滚动</title>
 <meta charset="utf-8"/>
-<meta name="keywords" content="javascript无缝滚动 by 司徒正美" />
-<meta name="description" content="javascript无缝滚动  by 司徒正美" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
 <style type="text/css">
     h1 {
         font:400 16px/1 "Microsoft YaHei",KaiTi_GB2312,SimSun
     }
-    #marquee {
+    .container {
         position:relative;
         width: 400px;
         overflow:hidden;
         border: 10px solid #B45B3E;
     }
-    #marquee img {
+    .container img {
         border:0px;
     }
-    #marquee dl, #marquee dt,#marquee dd,#marquee a {
+    .container dl, .container dt,.container dd,.container a {
         float:left;
         margin:0;
         padding:0;
     }
-    #marquee dl{
+    .container dl{
         width:1000%;
         height:150px;
     }
-    #marquee img{
+    .container img{
         width: 200px;
+    }
+    #marquee1 .item{
+        line-height: 30px;
+    }
+    #marquee1 dl, #marquee1  dt,#marquee1  dd,#marquee1  a {
+        clear: both;
+        margin:0;
+        padding:0;
     }
 </style>
 <script type="text/javascript">
-    var Marquee = function(id){
+    var Marquee = function(container, direction, speed){
         try{document.execCommand("BackgroundImageCache", false, true);}catch(e){};
-        var container = document.getElementById(id),
-            original = container.getElementsByTagName("dt")[0],
-            clone = container.getElementsByTagName("dd")[0],
-            speed = arguments[1] || 10;
-        clone.innerHTML=original.innerHTML;
-        var rolling = function(){
-//            向左
-            if(container.scrollLeft == clone.offsetLeft){
-                container.scrollLeft = 0;
-            }else{
-                container.scrollLeft++;
+        var slider = container.getElementsByClassName('slider')[0],
+            original = container.getElementsByTagName("dd")[0],
+            clone = original.cloneNode(true);
+            speed = speed || 10;
+            slider.appendChild(clone);
+            
+        var animates = {
+            up: function(){
+                if(container.scrollTop == clone.offsetTop){
+                    container.scrollTop = 0;
+                }else{
+                    container.scrollTop++;
+                }
+            },
+            down: function(){
+                if(container.scrollTop == 0){
+                    container.scrollTop = clone.offsetTop;
+                }else{
+                    container.scrollTop--;
+                }
+            },
+            left: function () {
+                if(container.scrollLeft == clone.offsetLeft){
+                    container.scrollLeft = 0;
+                }else{
+                    container.scrollLeft++;
+                }
+            },
+            right: function () {
+                if(container.scrollLeft == 0){
+                    container.scrollLeft = clone.offsetLeft;
+                }else{
+                    container.scrollLeft--;
+                }
             }
-//            向上
-//            if(container.scrollTop == clone.offsetTop){
-//                container.scrollTop = 0;
-//            }else{
-//                container.scrollTop++;
-//            }
-//            向下
-//            if(container.scrollTop == 0){
-//                container.scrollTop = clone.offsetTop;
-//            }else{
-//                container.scrollTop--;
-//            }
-
-//                向右
-//            if(container.scrollLeft == 0){
-//                container.scrollLeft = clone.offsetLeft;
-//            }else{
-//                container.scrollLeft--;
-//            }
-        }
+        }    
+        var rolling = animates[direction];
         var timer = setInterval(rolling,speed)//设置定时器
         container.onmouseover=function() {clearInterval(timer)}//鼠标移到marquee上时，清除定时器，停止滚动
         container.onmouseout=function() {timer=setInterval(rolling,speed)}//鼠标移开时重设定时器
     }
     window.onload = function(){
-        Marquee("marquee");
+        Marquee(document.getElementById("marquee"), 'right', 10);
+        Marquee(document.getElementById("marquee1"), 'up', 50);
     }
 </script>
-<div id="marquee">
-    <dl>
-        <dt>
+<div id="marquee" class="container">
+    <dl class="slider">
+        <dd class="item">
             <img src="../images/1.jpg"/>
             <img src="../images/2.jpg"/>
             <img src="../images/3.jpg"/>
             <img src="../images/4.jpg"/>
             <img src="../images/5.jpg"/>
             <img src="../images/6.jpg"/>
-        </dt>
-        <dd></dd>
+        </dd>
+    </dl>
+</div>
+<div id="marquee1" class="container">
+    <dl class="slider">
+        <dd class="item">
+            <div>hello word1</div>
+            <div>hello word2</div>
+            <div>hello word3</div>
+            <div>hello word4</div>
+            <div>hello word5</div>
+            <div>hello word6</div>
+            <div>hello word7</div>
+            <div>hello word8</div>
+            <div>hello word9</div>
+            <div>hello word10</div>
+        </dd>
     </dl>
 </div>

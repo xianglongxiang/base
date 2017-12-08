@@ -1,0 +1,52 @@
+.indexlist{
+    margin-right: 23px;
+    overflow-y: auto;
+}
+.tit{
+    height: 50px;
+    line-height: 50px;
+    background-color: #ccc;
+    padding: 0 20px;
+}
+.content{
+    height: 200px;
+    padding: 20px;
+}
+.indexlist-nav{
+    position: fixed;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 23px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    background-color: #fff;
+    border-left: 1px solid #ddd;
+    text-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+.indexlist-nav ul{
+    width: 100%;
+    margin: 0;
+    max-height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.indexlist-nav ul li{
+    height: 30px;
+    line-height: 30px;
+}
