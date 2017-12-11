@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta charset="utf-8">
+</header>
+<body>
+
+<p>计数: <output id="result"></output></p>
+<button onclick="start()">开始计数</button>
+<button onclick="stop()">暂停计数</button>
+<br /><br />
+
+<script>
+    var result = document.getElementById('result');
+    var workerObj = null;
+    if(window.Worker) {
+        workerObj = new Worker("../javascript/workers.js");
+        workerObj.onmessage = function (event) {
+            result.innerHTML = event.data;
+        };
+    }
+    /**
+     * 开始计数
+     * */
+    function start() {
+        workerObj.postMessage({type: 'start', speed: 30})
+    }
+    /**
+     * 暂停计数
+     * */
+    function stop() {
+        workerObj.postMessage({type: 'stop'})
+    }
+    /**
+     * 结束 worker
+     * */
+    function stopWorker(){
+        workerObj.terminate();
+    }
+</script>
+
+</body>
+</html>

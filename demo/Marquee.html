@@ -41,7 +41,7 @@
     var Marquee = function(container, direction, speed){
         try{document.execCommand("BackgroundImageCache", false, true);}catch(e){};
         var slider = container.getElementsByClassName('slider')[0],
-            original = container.getElementsByTagName("dd")[0],
+            original = container.getElementsByClassName("item")[0],
             clone = original.cloneNode(true);
             speed = speed || 10;
             slider.appendChild(clone);
