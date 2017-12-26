@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>全国城市三级联动</title>
+    <style type="text/css">
+        .marginTop10{
+            margin-top: 10px;
+        }
+        .select-1{
+            width: 85px;
+            max-width: 85px;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+            overflow:hidden;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="top">
+    <h1>全国城市三级联动</h1>
+</div>
+<div class="select-group" id="select-group">
+
+</div>
+<div class="marginTop10" id="show"></div>
+<script type="text/javascript" src="../javascript/data/cityList.js"></script>
+<script type="text/javascript">
+
+    var opt0 = ["省份","地级市","市、县级市"];//初始值
+    /**
+     * 城市级联
+     * */
+    function cityCascade() {
+        this.cityList = cityList || {};
+        this.selects = [];
+        
+    }
+    cityCascade.prototype = {
+        /**
+         * 城市编码是否存在
+         * @param <string>  城市编码
+         * */
+        isExist : function (id) {
+            if(typeof(this.cityList[id]) == "undefined") return false;
+            return true;
+        },
+        /**
+         * 创建select 标签
+         * @param <dom> 父元素
+         * */
+        create: function (dom) {
+            var _this  = this;
+            for(var i=0 ; i<3; i++){
+                var select = document.createElement('select');
+                select.classList.add('select-1');
+                select.indx = i+1;
+                select.onchange = function () {
+                    _this.change(this.indx);
+                }
+                this.selects.push(select);
+                dom.appendChild(select);
+            }
+        },
+        /**
+         * 级联修改
+         * @param <number> 需要级联的成绩
+         * */
+        change: function (indx) {
+            var code = '0';
+            for(var z=0; z<indx; z++){
+                code += ('_' + (this.selects[z].selectedIndex));
+            };
+            var options = this.selects[indx];
+            options.innerHTML = '';
+            options[0] = new Option(opt0[indx],opt0[indx]);
+            if(this.isExist(code)){
+                var ar = this.cityList[code];
+                for(var j=0; ar.length>j; j++){
+                    options[j]= new Option(ar[j],ar[j]);
+                }
+                if(indx){ options[0].selected = true; }
+            }
+            indx++;
+            if(this.selects.length > indx){
+                this.change(indx)
+            };
+            this.showArea();
+        },
+        /**
+         * 展示选择后的效果
+         * */
+        showArea: function () {
+            document.getElementById('show').innerHTML = '</h3>' + this.selects[0].value + '市' +
+                this.selects[1].value + '县/区' +
+                this.selects[2].value + '</h3>';
+        }
+    }
+
+    var _city = new cityCascade();
+    _city.create(document.getElementById('select-group'));
+    _city.change(0);
+
+</script>
+</body>
+</html>
