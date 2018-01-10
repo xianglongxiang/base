@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chart</title>
+    <style>
+        .container{
+            width: 1000px;
+            min-height: 1000px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .chart-group{
+            position: relative;
+            width: 480px;
+            float: left;
+        }
+        .chart-group2{
+            width: 1000px;
+        }
+        .chart{
+            width: 480px;
+            height: 200px;
+        }
+        .chart>div{
+            background-color: #f3f3f3;
+            border-radius: 4px;
+        }
+        .chart-group2 .chart{
+            width: 1000px;
+            height: 320px;
+        }
+        .marginTop20{
+            margin-top: 20px;
+        }
+        .marginLeft40{
+            margin-left: 40px;
+        }
+        .tit{
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="chart-group chart1 ">
+        <div class="tit">车辆信息</div>
+        <div class="chart" id="chart"></div>
+    </div>
+    <div class="chart-group chart2  marginLeft40">
+        <div class="tit">司机信息</div>
+        <div class="chart" id="chart2"></div>
+    </div>
+    <div class="chart-group chart-group2 chart3">
+        <div class="tit">告警数据分析</div>
+        <div class="chart" id="chart3"></div>
+    </div>
+</div>
+</body>
+<script src="./echarts.min.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('chart'));
+    var myChart2 = echarts.init(document.getElementById('chart2'));
+    var myChart3 = echarts.init(document.getElementById('chart3'));
+    var option = {
+        title: {
+            text: '车辆正常',
+            subtext: '  1320/1400',
+            left: '42%',
+            top: "center",
+            textStyle: {
+                color: '#304553',
+                align: 'right'
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: '10',
+            y: '10',
+            align: 'right',
+            data:['车辆正常','车辆停止']
+        },
+        series: [
+            {
+                name:'',
+                type:'pie',
+                radius: ['50%', '70%'],
+                center: ['50%', '50%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:335, name:'车辆正常'},
+                    {value:310, name:'车辆停止'}
+                ]
+            }
+        ]
+    };
+    var option2 = {
+        title: {
+            text: '事故请假',
+            left: '42%',
+            top: "center",
+            subtext: '    80/1400',
+            textStyle: {
+                color: '#333',
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: '10',
+            y: '10',
+            align: 'right',
+            data:['正常上班','事故请假']
+        },
+        series: [
+            {
+                name:'',
+                type:'pie',
+                radius: ['50%', '70%'],
+                center: ['50%', '50%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:80, name:'正常上班'},
+                    {value:1400, name:'事故请假'}
+                ]
+            }
+        ]
+    };
+
+   var option3 = {
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            left: '50',
+            y: '10',
+            data:['OBD','ADAS','DDS']
+        },
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        polar : [
+            {
+                indicator : [
+                    {text : '急加速', max  : 100},
+                    {text : '急加速', max  : 100},
+                    {text : '急转弯', max  : 100},
+                ],
+                center : [165,200],
+                radius : 80
+            },
+            {
+                indicator : [
+                    {text : '抽烟', max  : 100},
+                    {text : '打手机', max  : 100},
+                    {text : '闭眼', max  : 100},
+                    {text : '打哈欠', max  : 100},
+                    {text : '低头', max  : 100},
+                    {text : '侧脸', max  : 100}
+                ],
+                center : [495,200],
+                radius : 80
+            },
+            {
+                indicator : [
+                    {text : '左车道偏离', max  : 100},
+                    {text : '行人预警', max  : 100},
+                    {text : '前车碰撞', max  : 100},
+                    {text : '右车道偏离', max  : 100}
+                ],
+                center : [800,200],
+                radius : 80
+            },
+        ],
+        series : [
+            {
+                type: 'radar',
+                tooltip : {
+                    trigger: 'item'
+                },
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data : [
+                    {
+                        value : [60,73,85],
+                        name : 'OBD'
+                    }
+                ]
+            },
+            {
+                type: 'radar',
+                polarIndex : 1,
+                tooltip : {
+                    trigger: 'item'
+                },
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data : [
+                    {
+                        value : [60,73,85,40,30,20],
+                        name : 'ADAS'
+                    }
+                ]
+            },
+            {
+                type: 'radar',
+                polarIndex : 2,
+                tooltip : {
+                    trigger: 'item'
+                },
+                itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                data : [
+                    {
+                        value : [60,73,85,40],
+                        name : 'DDS'
+                    }
+                ]
+            },
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart2.setOption(option2);
+    myChart3.setOption(option3);
+</script>
+</html>

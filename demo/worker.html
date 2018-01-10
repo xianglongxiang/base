@@ -14,6 +14,12 @@
     var result = document.getElementById('result');
     var workerObj = null;
     if(window.Worker) {
+        try {
+            workerObj.terminate();
+            workerObj.close();
+        }catch(e){
+            console.log(e)
+        }
         workerObj = new Worker("../javascript/workers.js");
         workerObj.onmessage = function (event) {
             result.innerHTML = event.data;
@@ -23,7 +29,7 @@
      * 开始计数
      * */
     function start() {
-        workerObj.postMessage({type: 'start', speed: 30})
+        workerObj.postMessage({type: 'start', speed: 1000})
     }
     /**
      * 暂停计数
