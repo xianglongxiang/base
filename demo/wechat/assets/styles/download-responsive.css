@@ -1,0 +1,146 @@
+@media screen and (max-width: 767px) {
+    .header {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        min-height: 0;
+        background: #282d32 url(../images/m_kv_background_v3.jpg) no-repeat center 0; 
+        background-size: 100%;
+    }
+    .header .rename {
+        bottom: 10px;
+    }
+    .header .download-wrap,
+    .header .scroll-down {
+        display: none;
+    }
+    .container {
+        display: none;
+    }
+    .container.mobile {
+        display: block;
+        padding: 20px;
+    }
+    .download-wrap .download-btn {
+        width: 134px;
+        height: 53px;
+        background: url(../images/m_download_btns_v2.png) no-repeat;
+        background-size: 402px 53px;
+    }
+    .download-btn.android {
+        background-position: -134px 0;
+    }
+    .download-btn.iphone {}
+    .platform {
+        padding-top: 0;
+        font-size: 12px;
+    }
+    .features {
+        margin: 10px 0 20px;
+        border-bottom: 1px solid #e6e8ea;
+    }
+    .features li {
+        list-style: none;
+        padding: 35px 0;
+        border-top: 1px solid #e6e8ea;
+        text-align: center;
+    }
+    .features i.icon {
+        display: inline-block;
+        /* width: 80px; */
+        /* height: 80px; */
+        /* background-size: 400% 100%; */
+        width: 100px;
+        height: 100px;
+        background: url(../images/m_feature_icons.png) no-repeat;
+        background-size: cover;
+    }
+    .features i.icon-1 {
+        /* background-position: 0 0; */
+        background-position: -2px 0;
+    }
+    .features i.icon-2 {
+        /* background-position: -80px 0; */
+        background-position: -100px 0;
+    }
+    .features i.icon-3 {
+        /* background-position: -160px 0; */
+        background-position: -200px 0;
+    }
+    .features i.icon-4 {
+        /* background-position: -240px 0; */
+        background-position: -300px 0;
+    }
+    .features li h2 {
+        margin: 10px 0;
+        font-family: 'Microsoft Yahei';
+    }
+    .youwen {
+        margin-top: 15px;
+        padding: 20px 0 0;
+    }
+    .youwen p {
+        font-size: 20px;
+    }
+    .youwen .download-wrap {
+        padding-top: 10px;
+    }
+    .youwen .download-btn,
+    .youwen .download-btn:hover {
+        background-position: -268px 0;
+    }
+}
+@media screen and (max-width: 340px) {
+    .header {
+        height: 260px;
+    }
+    .header .rename img {
+        max-width: 300px;
+    }
+}
+@media screen and (min-width: 341px) and (max-width: 380px) {
+    .header {
+        height: 282px;
+    }
+    .header .rename img {
+        max-width: 320px;
+    }
+}
+@media screen and (min-width: 381px) and (max-width: 420px) {
+    .header {
+        height: 315px;
+    }
+    .header .rename img {
+        max-width: 330px;
+    }
+}
+@media screen and (min-width: 421px) and (max-width: 480px) {
+    .header {
+        height: 350px;
+    }
+    .header .rename img {
+        max-width: 340px;
+    }
+}
+@media screen and (min-width: 481px) and (max-width: 540px) {
+    .header {
+        height: 390px;
+    }
+    .header .rename img {
+        max-width: 350px;
+    }
+}
+@media screen and (min-width: 541px) and (max-width: 600px) {
+    .header {
+        height: 430px;
+    }
+    .header .rename img {
+        max-width: 360px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    .header .rename {
+        display: none;
+    }
+}

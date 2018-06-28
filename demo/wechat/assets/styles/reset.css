@@ -1,0 +1,46 @@
+html {
+    background-color: #fff;
+    color: #535353;
+}
+
+html, body, div, p, blockquote, form, textarea, input,
+ul, li, ol, dl, dt, dd,
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+body, input, textarea, button, select {
+    font: 16px/1.5 'Helvetica Neue', Helvetica, Arial, Sans-serif;
+}
+
+/* for mobile */
+input, button, select, textarea {
+    -webkit-appearance:none;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+}
+
+img {
+    border: none;
+}
+
+h1 {
+    font-size: 24px;
+}
+h2 {
+    font-size: 20px;
+}
+h3 {
+    font-size: 18px;
+}
+h4, h5, h6 {
+    font-size: 16px;
+}
+    
+a {
+    text-decoration: none;
+}

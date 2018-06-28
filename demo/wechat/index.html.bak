@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>驾图-智能驾驶 悦享生活</title>
+  <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link href="assets/styles/reset.css" media="screen" rel="stylesheet" type=
+  "text/css">
+  <link href="assets/styles/download.css" media="screen" rel="stylesheet" type=
+  "text/css">
+  <link href="assets/styles/download-responsive.css" media="screen" rel="stylesheet" type="text/css">
+  <script>
+  function scrollToY(to) {
+    var to = to || 0,
+      y = document.body.scrollTop || document.documentElement.scrollTop,
+      delay = 200,
+      perMinus = (to - y) / delay,
+      t = 0;
+    (function(startY) {
+      var caller = arguments.callee,
+        startY = startY + perMinus * 5;
+      window.scrollTo(0, startY);
+      if (Math.abs(startY - to) < 5) {
+        caller = null;
+      } else {
+        setTimeout(function() {
+          caller(startY);
+        }, 5);
+      }
+    }(y));
+  }
+
+  function scrollToNode(nodeId) {
+      var tar = document.getElementById(nodeId);
+      var top = tar.offsetTop,
+        parent = tar.offsetParent;
+      while (parent != null) {
+        top += parent.offsetTop;
+        parent = parent.offsetParent;
+      }
+      scrollToY(top);
+    }
+    (function(win) {
+      var ua = navigator.userAgent.toLowerCase(),
+        browser = {
+          ios: /iphone|ipod|ipad/i.test(ua),
+          android: /android/i.test(ua),
+          wechat: /micromessenger/i.test(ua),
+          weibo: /weibo/i.test(ua)
+        },
+        // TODO iOS 下载地址
+        iosUrl = 'itms-services://?action=download-manifest&url=https://dn-kartor.qbox.me/kartor4321.plist',
+        // TODO android 下载地址
+        androidUrl = 'https://dn-kartor.qbox.me/kartor4311.apk',
+        dlUrl = browser.ios ? iosUrl : androidUrl;
+      if (browser.wechat) {
+        dlUrl = 'http://mp.weixin.qq.com/mp/redirect?url=' + encodeURIComponent(dlUrl) + '#wechat_redirect';
+        if (browser.ios) {
+          dlUrl = '#'
+        }
+        /*
+        if (browser.android && location.href.indexOf('f\=wechat') === -1) {
+          // TODO android系统并且不在微信中 下载地址
+          // // 添加url search: f=wechat
+          // location.href = 'http://um0.cn/8EBKZN/';
+          location.href = 'http://cstonline.oicp.net:8089/kartor/Kartor.apk';
+        }
+        */
+      }
+      win.downloadBtn = (function mobileDownloadBtn() {
+        var platform = browser.ios ? 'iphone' : 'android',
+            support = browser.ios ? '适用于iOS6.0及以上' : '适用于Android4.0.3及以上';
+        return '<a class="download-btn ' + platform + '" href="' + dlUrl +
+          '"><\/a><p class="platform">' + support + '<\/p>';
+      }());
+      win.browser = browser;
+    })(window);
+  </script>
+  <style>
+    #wechat-tip {
+      background: url('assets/images/wechat_tip.png') no-repeat 100% 0;
+      background-size: contain;
+      height: 120px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      display: none;
+    }
+    #wechat-tip-ios {
+      background: url('assets/images/wechat_tip_ios.png') no-repeat 100% 0;
+      background-size: contain;
+      height: 120px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wechat-tip"></div>
+  <div id="wechat-tip-ios"></div>
+  <div class="header">
+    <div class="rename"><img src="assets/images/text.png"></div>
+
+    <div class="download-wrap">
+      <a class="download-btn android" href="https://dn-kartor.qbox.me/kartor4311.apk"></a>
+      <a class="download-btn iphone" href="itms-services://?action=download-manifest&url=https://dn-kartor.qbox.me/kartor4321.plist">
+      </a>
+      <div class="download-btn qrcode">
+        <div class="qrcode-wrap"><img src="assets/images/qr"></div><span>扫描下载</span>
+      </div>
+
+      <div class="platform">
+        <p>适用于 Android4.0.3 / iOS6.0 及以上</p>
+      </div>
+    </div>
+
+    <div class="scroll-down">
+      <a href="javascript:void(0)"></a>
+    </div>
+  </div>
+
+  <div class="container pc">
+    <div class="feature-demo"><img src="assets/images/feature_demo_v2.jpg"></div>
+
+    <div class="download-desc">
+      <div class="app-logo"></div>
+
+      <h1>智能驾驶 悦享生活</h1>
+
+      <div class="download-wrap">
+        <a class="download-btn android" href="https://dn-kartor.qbox.me/kartor4311.apk"></a> <a class=
+        "download-btn iphone" href="itms-services://?action=download-manifest&url=https://dn-kartor.qbox.me/kartor4321.plist">
+        </a>
+
+        <div class="download-btn qrcode">
+          <div class="qrcode-wrap"><img src="assets/images/qr"></div><span>扫描下载</span>
+        </div>
+
+        <div class="platform">
+          <p>适用于 Android4.0.3 / iOS6.0 及以上</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mobile">
+    <div class="download-wrap">
+      <script>document.write(downloadBtn)</script>
+    </div>
+
+    <ul class="features">
+      <li>
+        <i class="icon icon-1"></i>
+
+        <h2>Ta——安全卫士</h2>
+
+        <p>实时监控车辆位置，防止爱车失窃，把握车辆异动，碰撞、拖吊及时提醒。</p>
+      </li>
+
+      <li>
+        <i class="icon icon-2"></i>
+
+        <h2>Ta——技术帮手</h2>
+
+        <p>实时检测车辆状态；专业道路救援服务；反馈车辆故障，预约维修。</p>
+      </li>
+
+      <li>
+        <i class="icon icon-3"></i>
+
+        <h2>Ta——汽车管家</h2>
+
+        <p>掌握实时行车动态；记录分析驾驶行为；违章自动告知，汽车服务提醒代办；查找周边实时停车位；查看爱车大事记。</p>
+      </li>
+
+      <li>
+        <i class="icon icon-4"></i>
+
+        <h2>Ta——时尚达人</h2>
+
+        <p>指路、接人；组队出游时带队；发现附近圈内好友，带来浪漫邂逅！</p>
+      </li>
+    </ul>
+
+    <div class="download-wrap">
+      <script>document.write(downloadBtn)</script>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p class="copyright">Copyright© 2012-2014 CST. All Rights Reserved</p>
+    <p class="copyright">思建科技版权所有</p>
+  </div>
+  <script>
+    var isWechat = window.browser.wechat;
+    if (isWechat) {
+      document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('showOptionMenu');
+      });
+
+      // wechat-tip
+      var tip = document.getElementById('wechat-tip'),
+          tip_ios = document.getElementById('wechat-tip-ios');
+      if (browser.ios) {
+        tip_ios.style.display = 'block';
+      } else {
+        tip.style.display = 'block';
+      }
+      tip.addEventListener('click', function() {
+          var self = this;
+          self.style.display = "none";
+      });
+      tip_ios.addEventListener('click', function() {
+          var self = this;
+          self.style.display = "none";
+      });
+    }
+  </script>
+</body>
+</html>

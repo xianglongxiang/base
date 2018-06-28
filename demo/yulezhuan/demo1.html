@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=0">
+    <style>
+        .canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .opts-group{
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+        }
+        .opts-group botton{
+            padding: 10px 20px;
+            background-color: #8b3534;
+            border-radius: 10px;
+            color: #f5dbe5;
+        }
+        .opts-group botton:active{
+            opacity: .9;
+        }
+        .opts-group botton:active{
+            opacity: .8;
+        }
+    </style>
+    <link rel="stylesheet" href="./style/index.css">
+</head>
+<body>
+<canvas id="canvas" class="canvas">
+    您的浏览器不支持canvas
+</canvas>
+<div class="opts-group">
+    <botton onclick="start()" id="start">开始</botton>
+</div>
+<script>
+    var imgList = [
+        {
+            link: "1.jpg",
+            imgW: "750",
+            imgH: "1206"
+        }, {
+            link: "2.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "375",
+            areaH: "603",
+            areaL: "1379",
+            areaT: "103",
+            limitMax: .3,
+            limitMin: .2
+        }, {
+            link: "/3.jpg",
+            limitMax: .12,
+            limitMin: .08,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "152",
+            areaH: "244",
+            areaL: "791",
+            areaT: "1193"
+        }, {
+            link: "4.jpg",
+            limitMax: .22,
+            limitMin: .15,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "282",
+            areaH: "454",
+            areaL: "857",
+            areaT: "413"
+        }, {
+            link: "5.jpg",
+            limitMax: .18,
+            limitMin: .123,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "232",
+            areaH: "372",
+            areaL: "388",
+            areaT: "844"
+        }, {
+            link: "6.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "187",
+            areaH: "300",
+            areaL: "359",
+            areaT: "1226"
+        }, {
+            link: "6_5.jpg",
+            limitMax: .6,
+            limitMin: .415,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "778",
+            areaH: "1251",
+            areaL: "133",
+            areaT: "856"
+        }, {
+            link: "7.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "278",
+            areaH: "446",
+            areaL: "794",
+            areaT: "783"
+        }, {
+            link: "7_5.jpg",
+            limitMax: .75,
+            limitMin: .5,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "938",
+            areaH: "1507",
+            areaL: "428",
+            areaT: "454"
+        }, {
+            link: "8.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "290",
+            areaH: "466",
+            areaL: "1276",
+            areaT: "665"
+        }, {
+            link: "8_5.jpg",
+            limitMax: .6,
+            limitMin: .415,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "782",
+            areaH: "1258",
+            areaL: "977",
+            areaT: "557"
+        }, {
+            link: "9.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "238",
+            areaH: "382",
+            areaL: "1206",
+            areaT: "2310"
+        }, {
+            link: "9_5.jpg",
+            limitMax: .47,
+            limitMin: .355,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "669",
+            areaH: "1076",
+            areaL: "894",
+            areaT: "1608"
+        }, {
+            link: "10.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "247",
+            areaH: "396",
+            areaL: "285",
+            areaT: "45"
+        }, {
+            link: "10_5.jpg",
+            limitMax: .75,
+            limitMin: .5,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "938",
+            areaH: "1507",
+            areaL: "264",
+            areaT: "21"
+        }, {
+            link: "11.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "434",
+            areaH: "698",
+            areaL: "1059",
+            areaT: "192"
+        }, {
+            link: "11_5.jpg",
+            limitMax: .6,
+            limitMin: .415,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "780",
+            areaH: "1256",
+            areaL: "1038",
+            areaT: "679"
+        }, {
+            link: "12.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "415",
+            areaH: "668",
+            areaL: "226",
+            areaT: "2210"
+        }, {
+            link: "12_5.jpg",
+            limitMax: .6,
+            limitMin: .415,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "782",
+            areaH: "1258",
+            areaL: "356",
+            areaT: "1652"
+        }, {
+            link: "13.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "288",
+            areaH: "462",
+            areaL: "1494",
+            areaT: "528"
+        }, {
+            link: "13_5.jpg",
+            limitMax: .6,
+            limitMin: .415,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "782",
+            areaH: "1257",
+            areaL: "1017",
+            areaT: "482"
+        }, {
+            link: "14.jpg",
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "99",
+            areaH: "160",
+            areaL: "1158",
+            areaT: "2312"
+        }, {
+            link: "15.jpg",
+            limitMax: .1,
+            limitMin: .053,
+            imgW: "1875",
+            imgH: "3015",
+            areaW: "469",
+            areaH: "753",
+            areaL: "1001",
+            areaT: "2034 "
+        }];
+</script>
+<script>
+    var clientW = document.body.clientWidth
+    var clientH = document.body.clientHeight
+    var canvas = document.getElementById('canvas')
+    canvas.width = clientW
+    canvas.height = clientH
+
+    var context = canvas.getContext('2d')
+
+    var isPay = false
+    var loadImg = false
+    var radio = 1
+
+    var baseUrl = './images/'
+    var index = 0
+    var scale = 0.995
+    var imgObj1,
+        imgObj2,
+        img1,
+        img2;
+
+    function draw1() {
+        context.drawImage(img1, 0, 0, clientW, clientH)
+    }
+
+    function draw2() {
+        var sx = imgObj2.areaL - (imgObj2.areaW/radio- imgObj2.areaW)*(imgObj2.areaL/(imgObj2.imgW-imgObj2.areaW))
+        var sy = imgObj2.areaT - (imgObj2.areaH/radio - imgObj2.areaH)*(imgObj2.areaT/(imgObj2.imgH-imgObj2.areaH))
+        var swidth = imgObj2.areaW/radio
+        var sheight = imgObj2.areaH/radio
+        context.drawImage(img2, sx, sy, swidth,  sheight, 0, 0, clientW, clientH)
+    }
+
+
+    function move() {
+        context.clearRect(0, 0, clientW, clientH)
+        radio = radio*scale
+        draw2()
+        if(imgObj2.areaW/(radio*scale) >= imgObj2.imgW){
+            index++
+            createImg()
+            return
+        }
+        isPay && loadImg && requestAnimationFrame(move)
+    }
+
+    function createImg() {
+        radio=1;
+        imgObj1 = imgList[index]
+        imgObj2 = imgList[index+1]
+        loadImg = false
+        if(!imgObj2){
+            isPay = false
+            return  console.log('------动画完成');
+        }
+        Img(baseUrl + imgObj1.link, function (img) {
+            img1 = img
+            context.drawImage(img1, 0, 0, clientW, clientH)
+        })
+
+        Img(baseUrl + imgObj2.link, function (img) {
+            img2 = img
+            loadImg = true
+            move()
+        })
+    }
+
+    function init() {
+        createImg()
+    }
+
+    function start() {
+
+        if(isPay){
+            isPay = false
+            document.getElementById('start').innerText = '开始'
+        }else{
+            document.getElementById('start').innerText = '停止'
+            isPay = true
+            move()
+        }
+    }
+
+    //获取图片对象
+    function Img(src, callback) {
+        var img = new Image()
+        img.src = src;
+        img.onload = function () {
+            callback(img)
+        }
+    }
+    init()
+</script>
+</body>
+</html>

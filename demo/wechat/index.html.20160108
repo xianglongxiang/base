@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>驾图-智能驾驶 悦享生活</title>
+  <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link href="assets/styles/reset.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/styles/download.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/styles/download-responsive.css" media="screen" rel="stylesheet" type="text/css">
+  <script>
+	  (function(win) {
+		  var ua = navigator.userAgent.toLowerCase(),
+			  browser = {
+			  ios: /iphone|ipod|ipad/i.test(ua),
+			  android: /android/i.test(ua),
+			  wechat: /micromessenger/i.test(ua),
+			  weibo: /weibo/i.test(ua)
+		  };
+		  win.browser = browser;
+		  win.downloadBtn = (function () {
+			  var dlUrl = {
+				  // ios app store
+				  appStore: 'https://appsto.re/cn/w8JQ1.i',
+				  // android 普通下载地址
+				  android: 'https://dn-kartor.qbox.me/kartor4500050.apk',
+				  // 应用宝，针对微信打开
+				  appBao: 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.cstonline.kartor3&g_f=991653'
+			  };
+			  var platformText = {
+				  ios: 'iphone',
+				  android: 'android'
+			  };
+			  var supportText = {
+				  ios: '适用于iOS7.0及以上',
+				  android: '适用于Android4.0.3及以上',
+				  pc: '适用于 Android4.0.3 / iOS7.0 及以上'
+			  };
+			  var isWechat = browser.wechat,
+				  isIos = browser.ios,
+				  isAndroid = browser.android;
+			  var html = '', url = '';
+			  if (isIos || isAndroid) {
+				  // mobile
+				  var platform = isIos ? platformText.ios : platformText.android,
+					  support = isIos ? supportText.ios : supportText.android;
+				  if (isWechat) {
+					  url = dlUrl.appBao;
+				  } else if (isIos) {
+					  url = dlUrl.appStore;
+				  } else {
+					  url = dlUrl.android;
+				  }
+				  html = '<a class="download-btn ' + platform + '" href="' + url + '"></a>' +
+					  '<p class="platform">' + support + '</p>';
+				  window.onload = function () {
+					  location.replace(url);
+				  };
+			  } else {
+				  // pc
+				  html = '<a class="download-btn android" href="' + dlUrl.android + '"></a>' +
+					  '<a class="download-btn iphone" href="' + dlUrl.appStore + '"></a>' +
+					  '<div class="download-btn qrcode">' +
+					  '<div class="qrcode-wrap"><img src="assets/images/qr"></div><span>扫描下载</span>' +
+					  '</div>' + 
+					  '<div class="platform">' +
+					  '<p>' + supportText.pc + '</p>' +
+					  '</div>';
+			  }
+			  return html;
+		  }());
+	  })(window);
+
+	  function scrollToY(to) {
+		  var to = to || 0,
+			  y = document.body.scrollTop || document.documentElement.scrollTop,
+			  delay = 200,
+			  perMinus = (to - y) / delay,
+			  t = 0;
+		  (function(startY) {
+			  var caller = arguments.callee,
+				  startY = startY + perMinus * 5;
+			  window.scrollTo(0, startY);
+			  if (Math.abs(startY - to) < 5) {
+				  caller = null;
+			  } else {
+				  setTimeout(function() {
+					  caller(startY);
+				  }, 5);
+			  }
+		  }(y));
+	  }
+
+	  function scrollToNode(nodeId) {
+		  var tar = document.getElementById(nodeId);
+		  var top = tar.offsetTop,
+			  parent = tar.offsetParent;
+		  while (parent != null) {
+			  top += parent.offsetTop;
+			  parent = parent.offsetParent;
+		  }
+		  scrollToY(top);
+	  }
+  </script>
+  <style>
+    #wechat-tip {
+      background: url('assets/images/wechat_tip.png') no-repeat 100% 0;
+      background-size: contain;
+      height: 85px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 7%;
+      z-index: 1000;
+      display: none;
+    }
+    #wechat-tip-ios {
+      background: url('assets/images/wechat_tip_ios.png') no-repeat 100% 0;
+      background-size: contain;
+      height: 85px;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 7%;
+      z-index: 1000;
+      display: none;
+    }
+    #wechat-bg{
+      background: rgba(0,0,0,0.5);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: fixed;
+      z-index: 500;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wechat-bg">
+    <div id="wechat-tip"></div>
+    <div id="wechat-tip-ios"></div>
+  </div>
+  <div class="header">
+    <div class="rename"><img src="assets/images/text.png"></div>
+
+    <div class="download-wrap">
+		<script>document.write(downloadBtn)</script>
+    </div>
+
+    <div class="scroll-down">
+      <a href="javascript:void(0)"></a>
+    </div>
+  </div>
+
+  <div class="container pc">
+    <div class="feature-demo"><img src="assets/images/feature_demo_v2.jpg"></div>
+
+    <div class="download-desc">
+      <div class="app-logo"></div>
+
+      <h1>智能驾驶 悦享生活</h1>
+
+      <div class="download-wrap">
+		  <script>document.write(downloadBtn)</script>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mobile">
+    <div class="download-wrap" id="wechat-download1">
+      <script>document.write(downloadBtn)</script>
+    </div>
+
+    <ul class="features">
+      <li>
+        <i class="icon icon-1"></i>
+
+        <h2>Ta——安全卫士</h2>
+
+        <p>实时监控车辆位置，防止爱车失窃，把握车辆异动，碰撞、拖吊及时提醒。</p>
+      </li>
+
+      <li>
+        <i class="icon icon-2"></i>
+
+        <h2>Ta——技术帮手</h2>
+
+        <p>实时检测车辆状态；专业道路救援服务；反馈车辆故障，预约维修。</p>
+      </li>
+
+      <li>
+        <i class="icon icon-3"></i>
+
+        <h2>Ta——汽车管家</h2>
+
+        <p>掌握实时行车动态；记录分析驾驶行为；违章自动告知，汽车服务提醒代办；查找周边实时停车位；查看爱车大事记。</p>
+      </li>
+
+      <li>
+        <i class="icon icon-4"></i>
+
+        <h2>Ta——时尚达人</h2>
+
+        <p>指路、接人；组队出游时带队；发现附近圈内好友，带来浪漫邂逅！</p>
+      </li>
+    </ul>
+
+    <div class="download-wrap" id="wechat-download2">
+      <script>document.write(downloadBtn)</script>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p class="copyright">Copyright© 2012-2015 CST. All Rights Reserved</p>
+    <p class="copyright">思建科技版权所有</p>
+  </div>
+</body>
+</html>

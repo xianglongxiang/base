@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chart</title>
+    <style>
+        #map {
+            width: 1650px;
+            height: 495px;
+        }
+    </style>
+</head>
+<body>
+<div id="map" class="marginTop20"></div>
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4WANiA1bnHsyAh6q2I5cGSG0"></script>
+<script type="text/javascript" src="MarkerClusterer.js"></script>
+<script type="text/javascript" src="TextIconOverlay.js"></script>
+<script>
+
+ ;(function () {
+     var allMarkers = [], obdMarkers = [], ddsMarkers = [], adasMarkers = [];
+     var map = new BMap.Map("map");
+     map.enableScrollWheelZoom();
+     var point = new BMap.Point(117.000, 33.000);
+     map.centerAndZoom(point, 5);
+
+     var markerClusterer = new BMapLib.MarkerClusterer(map);
+
+     // 定义一个控件类,即function
+     function ZoomControl(){
+         // 默认停靠位置和偏移量
+         this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
+         this.defaultOffset = new BMap.Size(10, 10);
+     }
+
+     // 通过JavaScript的prototype属性继承于BMap.Control
+     ZoomControl.prototype = new BMap.Control();
+
+     // 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
+     // 在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
+     ZoomControl.prototype.initialize = function(map) {
+         // 创建一个DOM元素
+         var div = document.createElement("div");
+         // 添加文字说明
+         div.appendChild(document.createTextNode("放大2级"));
+         // 设置样式
+         div.style.cursor = "pointer";
+         div.style.border = "1px solid gray";
+         div.style.backgroundColor = "white";
+         // 绑定事件,点击一次放大两级
+         div.onclick = function(e) {
+             map.setZoom(map.getZoom() + 2);
+         }
+         // 添加DOM元素到地图中
+         map.getContainer().appendChild(div);
+         // 将DOM元素返回
+         return div;
+     }
+     // 创建控件
+     var myZoomCtrl = new ZoomControl();
+     // 添加到地图当中
+     map.addControl(myZoomCtrl);
+ })()
+
+
+
+</script>
+</html>

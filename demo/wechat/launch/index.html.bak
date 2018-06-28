@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <link rel="shortcut icon" type="image/ico" href="image/favicon.ico"/>
+ 
+    <title>Kartor</title>
+	<style>
+		html {
+			width: 100%;
+			height: 100%;
+			font-family: Helvetica;
+			font-size: 16px;
+			-webkit-text-size-adjust: 100%; 
+		}
+		body {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-tap-highlight-color: transparent;
+			tap-highlight-color: transparent;
+			-webkit-user-select: none;
+			user-select: none;
+			-webkit-touch-callout: none;
+			touch-callout: none; 
+			background-image: -webkit-linear-gradient(to bottom right, #111528, #363758);
+			background-image: linear-gradient(to bottom right, #111528, #363758);
+		}
+		.logo-box {
+			padding-top: 72%;
+			background: url(image/logo.png) center center no-repeat;
+			background-size: 27% auto;
+		}
+		.btn {
+			display: block;
+			width: 64%;
+			margin: 0 auto 20px auto;
+			text-align: center;
+			line-height: 49px;
+			color: #FFF;
+			border-radius: 4px;
+			text-decoration: none;
+			background-color: #EFC200;
+		}
+		.desc {
+			text-align: center;
+			font-size: 14px;
+			color: #888;
+		}
+	</style>
+</head>
+<body>
+	<div class="logo-box"></div>
+	<div>
+		<a id="btn-start" class="btn" href="javascript:">打开驾图</a>
+		<a id="btn-download" class="btn" href="javascript:">下载驾图</a>
+	</div>
+	<div class="desc">如无法打开应用，请下载最新应用</div>
+	<script>
+		(function (win) {
+			var urlStart, urlDownload, urlAppStore;
+			var btnStartup, btnDownload;
+			var doc = win.document;
+
+			var schemeData = {
+				android: {
+					'cn.cstonline.kartor3': 'kartor', // 驾图
+					'cn.cstonline.libao.kartor3': 'lbkartor', // 利宝
+					'cn.cstonline.shangshe.kartor3': 'sskartor' // 乐驾云途
+				},
+				ios: {
+					'cn.kartor.kartor3': 'kartor', // 驾图 app store
+					'cn.cstonline.kartor3': 'kartorep', // 驾图企业
+					'cn.kartor.libao.kartor3': 'lbkartor', // 利宝 app store
+					'cn.cstonline.libao.kartor3': 'lbkarotrep', // 利宝企业
+					'cn.kartor.shangshe.kartor3': 'sskartor', // 乐驾云途 app store
+					'cn.cstonline.shangshe.kartor3': 'sskartorep' // 乐驾云途企业
+				}
+			};
+
+			var platform = getPlatform() || {os: 'android'};
+			var params = parseParams();
+			var pkg = params.pkg;
+			if (!pkg) {
+				pkg = platform.os === 'android' ? 'cn.cstonline.kartor3' : 'cn.cstonline.kartor3';
+			}
+
+			var scheme = schemeData[platform.os][pkg] || 'kartor';
+
+			urlStart = scheme + '://ktrhost/open';
+			urlDownload = '//app.kartor.cn';
+			urlAppStore = '//appsto.re/cn/w8JQ1.i';
+			btnStartup = doc.getElementById('btn-start');
+			btnDownload = doc.getElementById('btn-download');
+
+			btnStartup.addEventListener('click', function (evt) {
+				startup();
+			}, false);
+			btnDownload.addEventListener('click', function (evt) {
+				win.location.href = urlDownload;
+			}, false);
+
+			//autoStartup();
+
+			function autoStartup() {
+				startup();
+				/*
+				('hidden' in doc && !doc.hidden || 'webkitHidden' in doc && !doc.webkitHidden) && setTimeout(function () {
+					//win.location.replace(urlDownload);
+					}, 200); 
+				*/
+			}
+
+			function startup() {
+				var ifa;
+				if (platform.os === 'ios' && platform.version === 9) {
+					setTimeout(function () {
+						var a, e;
+						a = doc.createElement('a');
+						a.setAttribute('href', urlStart);
+						a.style.display = 'none';
+						document.body.appendChild(a);
+
+						e = doc.createEvent('HTMLEvents');
+						e.initEvent('click', false, false);
+						a.dispatchEvent(e);
+					}, 100);
+				} else {
+					ifa = doc.createElement('iframe');
+					ifa.style.display='none';
+					ifa.src = urlStart;
+					doc.body.appendChild(ifa);
+					setTimeout(function () {
+						doc.body.removeChild(ifa);
+					}, 100);
+				}
+			}
+
+			function getPlatform() {
+				var ua, isAndroid, isIos, isIos9, isWechat, platform;
+				ua = navigator.userAgent;
+				var browser = {
+					ios: /iphone|ipod|ipad/i.test(ua),
+					android: /android/i.test(ua),
+					wechat: /micromessenger/i.test(ua)
+				};
+				if (/android/i.test(ua)) {
+					isAndroid = true;
+					platform = {
+						os: 'android'
+					};
+				} else if (/iphone|ipod|ipad/i.test(ua)) {
+					platform = {
+						os: 'ios'
+					};
+					if (ua.indexOf('OS 9_') > -1) {
+						isIos9 = true;
+						platform.version = 9;
+					}
+				}
+				return platform;
+			}
+
+			function parseParams() { 
+				var strParams, result;
+				strParams = location.search;
+				result = {};
+				if (strParams && strParams.indexOf('?') !== -1) { 
+					strParams = strParams.substr(1);
+					strParams.split('&').forEach(function (item) {
+						var arr = item.split('=');
+						result[arr[0]] = arr[1];
+					});
+				} 
+				return result; 
+			} 
+		}(window));
+	</script>
+</body>
+</html>

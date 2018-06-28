@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <link rel="shortcut icon" type="image/ico" href="image/favicon.ico"/>
+    <title>Kartor</title>
+	<style>
+		html { width: 100%; height: 100%;  font-size: 16px; -webkit-text-size-adjust: 100%; }
+		body { position: relative; width: 100%; height: 100%; margin: 0; -webkit-tap-highlight-color: transparent; tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-callout: none; background-image: -webkit-linear-gradient(to bottom right, #111528, #363758); background-image: linear-gradient(to bottom right, #111528, #363758); }
+		.logo-box { padding-top: 72%; background: transparent center center no-repeat; background-size: 27% auto; }
+		.logo-kartor { background-image: url(image/logo.png); }
+		.logo-shangshe { background-image: url(image/logo_shangshe.png); }
+		.logo-liberty { background-image: url(image/logo_liberty.png); }
+		.logo-xinqite { background-image: url(image/logo_xinqite.png); }
+		.logo-sailing { background-image: url(image/logo_sailing.png); }
+		.logo-jinyangguang { background-image: url(image/logo_jinyangguang.png); }
+		.logo-anan { background-image: url(image/logo_anan.png); }
+		.btn { display: block; width: 64%; margin: 0 auto 20px auto; font-size: 20px; text-align: center; line-height: 49px; color: #FFF; border-radius: 4px; text-decoration: none; background-color: #EFC200; }
+		.desc { text-align: center; font-size: 14px; color: #888; }
+	</style>
+</head>
+<body>
+	<div id="logo" class="logo-box"></div>
+	<div>
+		<a id="btn-start" class="btn" href="javascript:"></a>
+		<a id="btn-download" class="btn" href="javascript:"></a>
+	</div>
+	<div class="desc">如无法打开应用，请下载最新应用</div>
+	<script>
+		(function (win) {
+			var doc = win.document;
+			var elLogo, btnStartup, btnDownload;
+			var scheme, urlStart, urlDownload;
+
+			var schemeData = {
+				android: {
+					'cn.cstonline.kartor3': { // 驾图
+						'scheme': 'kartor',
+						'downloadUrl': 'http://app.kartor.cn'
+					},
+					'cn.cstonline.libao.kartor3': { // 利宝
+						'scheme': 'lbkartor',
+						'downloadUrl': 'http://liberty.app.kartor.cn'
+					},
+					'cn.cstonline.shangshe.kartor3': { // 乐驾云途
+						'scheme': 'sskartor',
+						'downloadUrl': 'http://ss.app.kartor.cn'
+					},
+					'cn.cstonline.xinqite.kartor3': { //新奇特
+						'scheme': 'xqtkartor',
+						'downloadUrl': 'http://ntscar.app.kartor.cn'
+					},
+					'cn.cstonline.sailing.kartor3': { //赛凌
+						'scheme': 'slkartor',
+						'downloadUrl': 'http://sl.app.kartor.cn'
+					},
+					'cn.cstonline.iyuexiang.kartor3': { //金阳光i悦享
+						'scheme': 'iyxkartor',
+						'downloadUrl': 'http://jyg.app.kartor.cn'
+					},
+					'cn.cstonline.ananchelian.kartor3': { //安安车联
+						'scheme': 'aaclkartor',
+						'downloadUrl': 'http://aa.app.kartor.cn'
+					}
+				},
+				ios: {
+					'cn.kartor.kartor3': { // 驾图 app store
+						'scheme': 'kartor',
+						'downloadUrl': 'http://appsto.re/cn/w8JQ1.i'
+					},
+					'cn.cstonline.kartor3': { // 驾图企业
+						'scheme': 'kartorep',
+						'downloadUrl': 'http://app.kartor.cn'
+					},
+					'cn.kartor.libao.kartor3': { // 利宝 app store
+						'scheme': 'lbkartor',
+						'downloadUrl': 'https://itunes.apple.com/us/app/li-bao-jia-tu/id1050031963?mt=8'
+					},
+					'cn.cstonline.libao.kartor3': { // 利宝企业
+						'scheme': 'lbkarotrep',
+						'downloadUrl': 'http://liberty.app.kartor.cn'
+					},
+					'cn.kartor.shangshe.kartor3': { // 乐驾云途 app store
+						'scheme': 'sskartor',
+						'downloadUrl': 'https://itunes.apple.com/us/app/le-jia-yun-tu/id1065449009?mt=8'
+					},
+					'cn.cstonline.shangshe.kartor3': { // 乐驾云途企业
+						'scheme': 'sskartorep',
+						'downloadUrl': 'http://ss.app.kartor.cn'
+					},
+					'cn.kartor.xinqite.kartor3': { //新奇特 app store
+						'scheme': 'xqtkartor',
+						'downloadUrl': 'https://itunes.apple.com/us/app/xin-qi-te-jia-tu/id1092467542?mt=8'
+					},
+					'cn.cstonline.xinqite.kartor3': { //新奇特企业
+						'scheme': 'xqtkartorep',
+						'downloadUrl': 'http://ntscar.app.kartor.cn'
+					},
+					'cn.kartor.sailing.kartor3': { //赛凌 app store
+						'scheme': 'slkartor',
+						'downloadUrl': 'https://itunes.apple.com/us/app/sai-ling-jia-tu/id1104220770?mt=8'
+					},
+					'cn.cstonline.sailing.kartor3': { //赛凌企业
+						'scheme': 'slkartorep',
+						'downloadUrl': 'http://sl.app.kartor.cn'
+					},
+					'cn.kartor.iyuexiang.kartor3': { //金阳光i悦享 app store
+						'scheme': 'iyxkartor',
+						'downloadUrl': 'https://itunes.apple.com/us/app/jin-yang-guangi-yue-xiang/id1102658906?mt=8'
+					},
+					'cn.cstonline.iyuexiang.kartor3': { //金阳光i悦享企业
+						'scheme': 'iyxkartorep',
+						'downloadUrl': 'http://jyg.app.kartor.cn'
+					},
+					'cn.kartor.ananchelian.kartor3': { //安安车联 app store
+						'scheme': 'aaclkartor',
+						'downloadUrl': ''
+					},
+					'cn.cstonline.ananchelian.kartor3': { //安安车联企业
+						'scheme': 'aaclkartorep',
+						'downloadUrl': 'http://aa.app.kartor.cn'
+					}
+				}
+			};
+
+			var platform = getPlatform() || {os: 'android'};
+			var params = parseParams();
+			var pkg = params.pkg;
+			var data = params.ktrar_data;
+			if (!pkg) {
+				pkg = platform.os === 'android' ? 'cn.cstonline.kartor3' : 'cn.kartor.kartor3';
+			}
+
+			var pkgData = schemeData[platform.os][pkg];
+			scheme = pkgData['scheme'] || 'kartor';
+			urlStart = scheme + '://ktrhost/open?ktrar_data=' + data;
+			urlDownload = pkgData['downloadUrl'] || 'http://app.kartor.cn';
+
+			elLogo = doc.getElementById('logo');
+			btnStartup = doc.getElementById('btn-start');
+			btnDownload = doc.getElementById('btn-download');
+
+			if (scheme === 'lbkartor' || scheme === 'lbkarotrep') {
+				// 利宝
+				elLogo.classList.add('logo-liberty');
+				btnStartup.innerHTML = '打开利宝驾图';
+				btnDownload.innerHTML = '下载利宝驾图';
+			} else if (scheme === 'sskartor' || scheme === 'sskartorep') {
+				// 乐驾云途
+				elLogo.classList.add('logo-shangshe');
+				btnStartup.innerHTML = '打开乐驾云途';
+				btnDownload.innerHTML = '下载乐驾云途';
+			} else if (scheme === 'xqtkartor' || scheme === 'xqtkartorep') {
+				// 新奇特
+				elLogo.classList.add('logo-xinqite');
+				btnStartup.innerHTML = '打开新奇特';
+				btnDownload.innerHTML = '下载新奇特';
+			} else if (scheme === 'slkartor' || scheme === 'slkartorep') {
+				// 赛凌
+				elLogo.classList.add('logo-sailing');
+				btnStartup.innerHTML = '打开赛凌';
+				btnDownload.innerHTML = '下载赛凌';
+			} else if (scheme === 'iyxkartor' || scheme === 'iyxkartorep') {
+				// 金阳光
+				elLogo.classList.add('logo-jinyangguang');
+				btnStartup.innerHTML = '打开金阳光';
+				btnDownload.innerHTML = '下载金阳光';
+			} else if (scheme === 'aaclkartor' || scheme === 'aaclkartorep') {
+				// 安安车联
+				elLogo.classList.add('logo-anan');
+				btnStartup.innerHTML = '打开安安车联';
+				btnDownload.innerHTML = '下载安安车联';
+			} else {
+				// 驾图
+				elLogo.classList.add('logo-kartor');
+				btnStartup.innerHTML = '打开驾图';
+				btnDownload.innerHTML = '下载驾图';
+			}
+
+			btnStartup.addEventListener('click', function (evt) {
+				startup();
+			}, false);
+			btnDownload.addEventListener('click', function (evt) {
+				win.location.href = urlDownload;
+			}, false);
+
+			//autoStartup();
+
+			function autoStartup() {
+				startup();
+				/*
+				('hidden' in doc && !doc.hidden || 'webkitHidden' in doc && !doc.webkitHidden) && setTimeout(function () {
+					//win.location.replace(urlDownload);
+					}, 200); 
+				*/
+			}
+
+			function startup() {
+				var ifa;
+				//alert(JSON.stringify(platform) + 'url: ' + urlStart);
+                if (platform.os === 'ios' && platform.version >= 9) {
+					setTimeout(function () {
+						var a, e;
+						a = doc.createElement('a');
+						a.setAttribute('href', urlStart);
+						a.style.display = 'none';
+						document.body.appendChild(a);
+
+						e = doc.createEvent('HTMLEvents');
+						e.initEvent('click', false, false);
+						a.dispatchEvent(e);
+					}, 100);
+				} else {
+					ifa = doc.createElement('iframe');
+					ifa.style.display = 'none';
+					ifa.src = urlStart;
+					doc.body.appendChild(ifa);
+					setTimeout(function () {
+						doc.body.removeChild(ifa);
+					}, 100);
+				}
+			}
+
+			function getPlatform() {
+				var ua, isAndroid, isIos, isWechat, platform;
+				ua = navigator.userAgent;
+				var browser = {
+					ios: /iphone|ipod|ipad/i.test(ua),
+					android: /android/i.test(ua),
+					wechat: /micromessenger/i.test(ua)
+				};
+				if (/android/i.test(ua)) {
+					isAndroid = true;
+					platform = {
+						os: 'android'
+					};
+				} else if (/iphone|ipod|ipad/i.test(ua)) {
+					platform = {
+						os: 'ios'
+					};
+					if (ua.indexOf('OS 9_') > -1) {
+						platform.version = 9;
+					} else if (ua.indexOf('OS 10_') > -1) {
+						platform.version = 10;
+                    }
+				}
+				return platform;
+			}
+
+			function parseParams() { 
+				var strParams, result;
+				strParams = location.search;
+				result = {};
+				if (strParams && strParams.indexOf('?') !== -1) { 
+					strParams = strParams.substr(1);
+					strParams.split('&').forEach(function (item) {
+						var arr = item.split('=');
+						result[arr[0]] = arr[1];
+					});
+				} 
+				return result; 
+			} 
+		}(window));
+	</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+html, body {
+    height: 100%;
+}
+.mobile-wrapper {
+    display: none;
+}
+.download-wrap {
+    text-align: center;
+}
+.header {
+    position: relative;
+    height: 100%;
+    min-height: 660px;
+    max-height: 1376px;
+    _height: expression(this.scrollHeight > 1376 ? '1376px' : '100%');
+    background: #282d32 url(../images/kv_background_v2.jpg) no-repeat 50% 50%;
+    /* background: #282d32 url(../images/m_kv_background_v3.jpg) no-repeat center; */
+    background-size: cover;
+}
+.header .rename {
+    position: absolute;
+    z-index: 1;
+    bottom: 230px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.rename img {
+    max-width: 90%;
+}
+.header .download-wrap {
+    position: absolute;
+    left: 0;
+    bottom: 60px;
+    width: 100%;
+}
+.download-wrap .download-btn {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    width: 210px;
+    height: 88px;
+    margin: 0 20px;
+    background: url(../images/download_btns_v3.png) no-repeat;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+.download-btn.android,
+.header .android:hover {
+    background-position: -210px -88px;
+}
+.header .android,
+.android:hover {
+    background-position: -210px 0;
+}
+.download-btn.iphone {
+    background-position: 0 -88px;
+}
+.iphone:hover {
+    background-position: 0 0;
+}
+.download-wrap .qrcode {
+    height: 86px;
+    border: 2px solid #fff;
+    background: #606467\9;
+    background: rgba(255, 255, 255, .1);
+}
+.qrcode .qrcode-wrap {
+    overflow: hidden;
+    float: left;
+    display: inline;
+    position: relative;
+    width: 86px;
+    height: 86px;
+    _height: 88px;
+    background-color: #fff;
+}
+.qrcode-wrap img {
+    position: absolute;
+    left: -15px;
+    top: -15px;
+    width: 115px;
+    height: 115px;
+}
+.qrcode span {
+    line-height: 88px;
+    color: #fff;
+}
+.header .platform {
+    color: #acadad;
+}
+.header .scroll-down {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 44px;
+    background-color: #fff;
+    text-align: center;
+}
+.scroll-down a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #fff url(../images/scroll_down_arrow.jpg) no-repeat center;
+}
+.container {
+    max-width: 980px;
+    _width: 980px;
+    margin: 0 auto;
+}
+.container.mobile {
+    display: none;
+}
+.feature-demo {
+    margin: 20px 0;
+    padding: 20px 10px;
+    border-bottom: 1px solid #dcdcdc;
+    text-align: center;
+}
+.feature-demo img {
+    width: 100%;
+}
+
+.download-desc {
+    padding: 20px 0;
+    text-align: center;
+}
+.app-logo {
+    width: 144px;
+    height: 144px;
+    margin: 20px auto;
+    background: url(../images/app_logo_v2.jpg) no-repeat;
+}
+.download-desc h1 {
+    margin: 5px 0;
+    font-family: "Microsoft Yahei";
+}
+.download-desc .download-wrap {
+    padding: 50px 0 10px;
+}
+.download-desc .qrcode {
+    border-color: #282d32;
+    background: #fff; 
+}
+.download-desc .qrcode span {
+    color: #1a1c1e;
+}
+.platform {
+    line-height: 30px;
+    padding-top: 18px;
+}
+.footer {
+    padding: 25px 6px;
+    background-color: #282d32;
+    text-align: center;
+    color: #b4b9be;
+    font-size: 12px;
+}
+.footer a {
+    color: #b4b9be;
+}
+/* 微信 在浏览器中打开提示 */
+.browser-tips {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.browser-tips-content {
+    position: relative;
+    z-index: 1;
+    margin: 0 10px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+}
+.browser-tips-content label {
+    position: relative;
+    z-index: 1;
+    padding: 0 6px;
+    line-height: 42px;
+    background-color: #fff;
+    font-size: 15px;
+}
+.browser-tips-content .line-with-bg {
+    display: block;
+    background-color: #d7eaf6;
+    border-radius: 2px;
+}
+.browser-tips-content .tips-arrow {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background: url(../images/wechat_tips_arrow_v2.png) no-repeat right top;
+    background-size: 30px 30px;
+}
+.browser-tips-content .font-attention {
+    color: #f34028;
+}
+.browser-tips-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(36, 39, 42, .8);
+}
+
+.youwen {
+    margin-top: 25px;
+    padding: 50px 0;
+    border-top: 1px solid #dadada;
+}
+.youwen p {
+    font-weight: bold;
+    font-size: 24px;
+    font-family: 'Microsoft Yahei';
+    text-align: center;
+}
+.youwen .download-wrap {
+    padding-top: 50px;
+}
+.youwen .download-btn {
+    background-position: -420px -88px;
+}
+.youwen .download-btn:hover {
+    background-position: -420px 0;
+}
+
